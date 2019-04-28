@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using ActorService.Model;
 
@@ -21,7 +22,12 @@ namespace ActorService.Repositories
         {
             return _modelContext.Actors.FirstOrDefault(a => a.Id == id);
         }
-        
+
+        public IReadOnlyList<Actor> GetActors()
+        {
+            return _modelContext.Actors.ToList();
+        }
+
         public bool Save()
         {
             return (_modelContext.SaveChanges() >= 0);

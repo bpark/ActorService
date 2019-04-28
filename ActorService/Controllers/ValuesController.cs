@@ -24,14 +24,9 @@ namespace ActorService.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<Actor>> Get()
         {
-            var actor = _actorFactory.CreateRandomActor();
-            
-            _actorRepository.AddActor(actor);
-            _actorRepository.Save();
-            
-            return new string[] {"value1", "value2"};
+            return Ok(_actorRepository.GetActors());
         }
 
         // GET api/values/5
@@ -45,6 +40,10 @@ namespace ActorService.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            var actor = _actorFactory.CreateRandomActor();
+            
+            _actorRepository.AddActor(actor);
+            _actorRepository.Save();
         }
 
         // PUT api/values/5

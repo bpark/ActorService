@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ActorService.Model;
 
 namespace ActorService.Repositories
@@ -7,6 +8,8 @@ namespace ActorService.Repositories
         void AddActor(Actor actor);
 
         Actor GetActor(int id);
+        
+        IReadOnlyList<Actor> GetActors();
 
         bool Save();
     }
