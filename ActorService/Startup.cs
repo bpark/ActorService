@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ActorService.Model;
+﻿using ActorService.Model;
 using ActorService.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace ActorService
 {
@@ -24,6 +17,8 @@ namespace ActorService
 
         public IConfiguration Configuration { get; }
 
+        private const string AllowedOrigins = "AllowedOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -34,6 +29,15 @@ namespace ActorService
             // register the repository
             services.AddScoped<IActorRepository, ActorRepository>();
             services.AddSingleton<IActorFactory, ActorFactory>();
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowedOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200", "http://localhost:5002");
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +53,7 @@ namespace ActorService
                 app.UseHsts();
             }
 
+            app.UseCors(AllowedOrigins);
             app.UseHttpsRedirection();
             app.UseMvc();
         }

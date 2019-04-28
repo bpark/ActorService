@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ActorService.Model;
 using ActorService.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +21,11 @@ namespace ActorService.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Actor>> Get()
+        public ActionResult<IEnumerable<Actor>> Get(int page = 0, int pageSize = 10)
         {
-            return Ok(_actorRepository.GetActors());
+            var count = _actorRepository.Count();
+            var actors = _actorRepository.GetActors(page, pageSize);
+            return Ok(new ResultListDto<Actor>(count, actors));
         }
 
         // GET api/values/5

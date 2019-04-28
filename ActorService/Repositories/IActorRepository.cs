@@ -9,7 +9,9 @@ namespace ActorService.Repositories
 
         Actor GetActor(int id);
         
-        IReadOnlyList<Actor> GetActors();
+        IReadOnlyList<Actor> GetActors(int page = 0, int pageSize = 10);
+
+        int Count();
 
         bool Save();
     }
