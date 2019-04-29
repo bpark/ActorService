@@ -108,5 +108,21 @@ namespace ActorService.Model
         [NotMapped]
         public int Speed => (int) Math.Round((BaseSpeed + Balance.Speed / 10) * Level * Quality.Multiplier);
 
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == this.GetType() && Equals((Actor) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id;
+        }
+        
+        private bool Equals(Actor other)
+        {
+            return Id == other.Id;
+        }
     }
 }
