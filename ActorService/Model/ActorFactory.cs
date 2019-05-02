@@ -35,7 +35,7 @@ namespace ActorService.Model
                 BaseHealth = _random.Next(1, 50),
                 BasePower = _random.Next(1, 10),
                 BaseSpeed = _random.Next(1, 10),
-                Abilities = createAbilities()
+                Abilities = CreateAbilities()
             };
 
             actor.CurrentHealth = actor.Health;
@@ -43,7 +43,7 @@ namespace ActorService.Model
             return actor;
         }
 
-        private List<Ability> createAbilities()
+        private List<Ability> CreateAbilities()
         {
             var offensive = _random.Next(1, 3);
 
