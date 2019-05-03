@@ -51,9 +51,9 @@ namespace ActorService.Model
         public static readonly Balance HB = new Balance(9, 4, 4, "HB");
         public static readonly Balance BB = new Balance(5, 5, 5, "BB");
             
-        public float Health{get; }
-        public float Power{get; }
-        public float Speed {get; }
+        public float Health { get; }
+        public float Power { get; }
+        public float Speed { get; }
         
         public string Name { get; }
         
