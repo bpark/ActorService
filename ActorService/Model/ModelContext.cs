@@ -1,16 +1,24 @@
 using System;
 using System.Linq;
+using ActorService.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace ActorService.Model
 {
     public class ModelContext : DbContext
     {
+        private readonly ConnectionString _connectionString;
+        
         public DbSet<Actor> Actors { get; set; }
+
+        protected ModelContext(ConnectionString connectionString)
+        {
+            _connectionString = connectionString;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL("server=192.168.33.11;database=actor;user=actor_user;password=user_actor");
+            optionsBuilder.UseMySQL(_connectionString.Value);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,5 +1,6 @@
 ﻿using ActorService.Model;
 using ActorService.Repositories;
+using ActorService.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,10 @@ namespace ActorService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
+
+            var connectionString = new ConnectionString(Configuration["ConnectionString"]);
+
+            services.AddSingleton(connectionString);
             services.AddDbContext<ModelContext>();
 
             // register the repository

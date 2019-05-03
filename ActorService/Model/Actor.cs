@@ -17,7 +17,7 @@ namespace ActorService.Model
         public float Multiplier {get; }
         public string Name { get; }
 
-        public static IEnumerable<Quality> Values => new Quality[] { Poor, Common, Uncommon, Rare, Epic, Legendary };
+        public static IEnumerable<Quality> Values => new[] { Poor, Common, Uncommon, Rare, Epic, Legendary };
 
         private Quality(float multiplier, string name) {
             Multiplier = multiplier;
@@ -57,7 +57,7 @@ namespace ActorService.Model
         
         public string Name { get; }
         
-        public static Balance[] Values => new Balance[] { PP, SS, HH, HP, PS, HS, PB, SB, HB, BB };
+        public static Balance[] Values => new[] { PP, SS, HH, HP, PS, HS, PB, SB, HB, BB };
 
         private Balance(int health, int power, int speed, string name)
         {
