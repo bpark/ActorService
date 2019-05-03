@@ -39,5 +39,49 @@ namespace ActorService.Tests.Model
 
             Assert.DoesNotContain(_zone.Actors, a => a.Id == actor.Id);
         }
+        
+        [Fact]
+        public void AddInhabitantsTest()
+        {
+            var inhabitant1 = new Actor
+            {
+                Id = 1
+            };
+
+            var inhabitant2 = new Actor
+            {
+                Id = 2
+            };
+
+            var inhabitants = new Actor[] { inhabitant1, inhabitant2 };
+
+            _zone.AddInhabitants(inhabitants);
+
+            Assert.Equal(inhabitants, _zone.Inhabitants);
+        }
+
+        [Fact]
+        public void TakeInhabitantsTest()
+        {
+            var inhabitant1 = new Actor
+            {
+                Id = 1
+            };
+
+            var inhabitant2 = new Actor
+            {
+                Id = 2
+            };
+
+            var inhabitants = new Actor[] { inhabitant1, inhabitant2 };
+
+            _zone.AddInhabitants(inhabitants);
+            var taken = _zone.TakeInhabitants(1);
+
+            Assert.Contains(_zone.Inhabitants, a => a.Id == 2);
+            Assert.Equal(new Actor[] { inhabitant1 }, taken);
+            Assert.Equal(new Actor[] { inhabitant2 }, _zone.Inhabitants);
+        }
+
     }
 }

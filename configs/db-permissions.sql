@@ -1,0 +1,1 @@
+GRANT GRANT OPTION, SELECT, SHOW VIEW ON mysql.* TO 'actor_user'@'%';
