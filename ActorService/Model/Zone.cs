@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace ActorService.Model
@@ -40,8 +39,8 @@ namespace ActorService.Model
         public int Level { get; set; }
         public ZoneType ZoneType { get; set; }
 
-        public ReadOnlyCollection<Actor> Actors => _actors.AsReadOnly();
-        public ReadOnlyCollection<Actor> Inhabitants => _inhabitants.AsReadOnly();
+        public IEnumerable<Actor> Actors => _actors;
+        public IEnumerable<Actor> Inhabitants => _inhabitants;
 
         private readonly List<Actor> _actors = new List<Actor>();
         private readonly List<Actor> _inhabitants = new List<Actor>();
@@ -58,7 +57,7 @@ namespace ActorService.Model
 
         public IEnumerable<Actor> TakeInhabitants(int amount)
         {
-            var taken = _inhabitants.Take(amount);
+            var taken = _inhabitants.Take(amount).ToArray();
             _inhabitants.RemoveAll(a => taken.Contains(a));
             return taken;
         }
