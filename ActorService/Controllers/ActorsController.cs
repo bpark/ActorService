@@ -1,20 +1,23 @@
 ﻿using System.Collections.Generic;
+using ActorService.AppServices;
 using ActorService.Model;
 using ActorService.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActorService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/actors")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ActorsController : ControllerBase
     {
 
         private readonly IActorRepository _actorRepository;
         private readonly IActorFactory _actorFactory;
+        private readonly GetActorListQueryHandler _listQueryHandler;
 
-        public ValuesController(IActorRepository actorRepository, IActorFactory actorFactory)
+        public ActorsController(GetActorListQueryHandler listQueryHandler, IActorRepository actorRepository, IActorFactory actorFactory)
         {
+            _listQueryHandler = listQueryHandler;
             _actorRepository = actorRepository;
             _actorFactory = actorFactory;
         }
@@ -23,9 +26,8 @@ namespace ActorService.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Actor>> Get(int page = 0, int pageSize = 10)
         {
-            var count = _actorRepository.Count();
-            var actors = _actorRepository.GetActors(page, pageSize);
-            return Ok(new ResultListDto<Actor>(count, actors));
+            var resultListDto = _listQueryHandler.Handle(new GetActorListQuery(page, pageSize));
+            return Ok(resultListDto);
         }
 
         // GET api/values/5

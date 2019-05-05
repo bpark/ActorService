@@ -16,32 +16,33 @@ namespace ActorService.AppServices
             PageSize = pageSize;
         }
 
-        internal sealed class GetListQueryHandler : IQueryHandler<GetActorListQuery, ResultListDto<ActorDto>>
+    }
+    
+    public sealed class GetActorListQueryHandler : IQueryHandler<GetActorListQuery, ResultListDto<ActorDto>>
+    {
+
+        private readonly IActorRepository _actorRepository;
+
+        public GetActorListQueryHandler(IActorRepository actorRepository)
         {
+            _actorRepository = actorRepository;
+        }
 
-            private readonly IActorRepository _actorRepository;
-
-            public GetListQueryHandler(IActorRepository actorRepository)
+        public ResultListDto<ActorDto> Handle(GetActorListQuery query)
+        {
+            var actors = _actorRepository.GetActors(query.Page, query.PageSize);
+            var actorDtos = actors.Select(a => new ActorDto
             {
-                _actorRepository = actorRepository;
-            }
-
-            public ResultListDto<ActorDto> Handle(GetActorListQuery query)
-            {
-                var actors = _actorRepository.GetActors(query.Page, query.PageSize);
-                var actorDtos = actors.Select(a => new ActorDto
-                {
-                    Name = a.Name,
-                    Balance = a.Balance.Name,
-                    Experience = a.Experience,
-                    CurrentHealth = a.CurrentHealth,
-                    Health = a.Health,
-                    Power = a.Power,
-                    Speed = a.Speed,
-                    Quality = a.Quality.Name
-                }).ToList();
-                return  new ResultListDto<ActorDto>(_actorRepository.Count(), actorDtos);
-            }
+                Name = a.Name,
+                Balance = a.Balance.Name,
+                Experience = a.Experience,
+                CurrentHealth = a.CurrentHealth,
+                Health = a.Health,
+                Power = a.Power,
+                Speed = a.Speed,
+                Quality = a.Quality.Name
+            }).ToList();
+            return  new ResultListDto<ActorDto>(_actorRepository.Count(), actorDtos);
         }
     }
 }

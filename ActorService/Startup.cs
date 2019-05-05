@@ -1,9 +1,10 @@
-﻿using ActorService.Model;
+﻿using ActorService.AppServices;
+using ActorService.Model;
 using ActorService.Repositories;
-using ActorService.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,14 +26,16 @@ namespace ActorService
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            var connectionString = new ConnectionString(Configuration["ConnectionString"]);
-
-            services.AddSingleton(connectionString);
-            services.AddDbContext<ModelContext>();
+            services.AddDbContext<ModelContext>(options =>
+            {
+                options.UseMySQL(Configuration["ConnectionString"]);
+            });
 
             // register the repository
             services.AddScoped<IActorRepository, ActorRepository>();
             services.AddSingleton<IActorFactory, ActorFactory>();
+
+            services.AddScoped<GetActorListQueryHandler>();
             
             services.AddCors(options =>
             {
@@ -42,6 +45,7 @@ namespace ActorService
                         builder.WithOrigins("http://localhost:4200", "http://localhost:5002");
                     });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
