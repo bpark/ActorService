@@ -11,15 +11,17 @@ namespace ActorService.Controllers
     public class ActorsController : ControllerBase
     {
 
-        private readonly IActorRepository _actorRepository;
-        private readonly IActorFactory _actorFactory;
         private readonly GetActorListQueryHandler _listQueryHandler;
+        private readonly GetActorQueryHandler _queryHandler;
+        private readonly CreateActorCommandHandler _commandHandler;
 
-        public ActorsController(GetActorListQueryHandler listQueryHandler, IActorRepository actorRepository, IActorFactory actorFactory)
+        public ActorsController(GetActorListQueryHandler listQueryHandler,
+                                GetActorQueryHandler queryHandler,
+                                CreateActorCommandHandler commandHandler)
         {
             _listQueryHandler = listQueryHandler;
-            _actorRepository = actorRepository;
-            _actorFactory = actorFactory;
+            _queryHandler = queryHandler;
+            _commandHandler = commandHandler;
         }
 
         // GET api/values
@@ -34,29 +36,16 @@ namespace ActorService.Controllers
         [HttpGet("{id}")]
         public ActionResult<Actor> Get(int id)
         {
-            return _actorRepository.GetActor(id);
+            var actorDto = _queryHandler.Handle(new GetActorQuery(id));
+            return Ok(actorDto);
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {
-            var actor = _actorFactory.CreateRandomActor();
-            
-            _actorRepository.AddActor(actor);
-            _actorRepository.Save();
+            _commandHandler.Handle(new CreateActorCommand());
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

@@ -36,6 +36,8 @@ namespace ActorService
             services.AddSingleton<IActorFactory, ActorFactory>();
 
             services.AddScoped<GetActorListQueryHandler>();
+            services.AddScoped<GetActorQueryHandler>();
+            services.AddScoped<CreateActorCommandHandler>();
             
             services.AddCors(options =>
             {
