@@ -1,5 +1,3 @@
-using System.Linq;
-using ActorService.Controllers;
 using ActorService.Model;
 using ActorService.Repositories;
 using CSharpFunctionalExtensions;
@@ -8,11 +6,6 @@ namespace ActorService.AppServices
 {
     public sealed class CreateActorCommand : ICommand
     {
-        
-        public CreateActorCommand()
-        {
-        }
-
     }
     
     public sealed class CreateActorCommandHandler : ICommandHandler<CreateActorCommand>
