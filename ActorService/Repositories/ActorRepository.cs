@@ -23,7 +23,7 @@ namespace ActorService.Repositories
             return _modelContext.Actors.FirstOrDefault(a => a.Id == id);
         }
 
-        public IReadOnlyList<Actor> GetActors(int page = 0, int pageSize = 10)
+        public IEnumerable<Actor> GetActors(int page = 0, int pageSize = 10)
         {
             return _modelContext.Actors.Skip(page * pageSize).Take(pageSize).ToList();
         }

@@ -34,17 +34,26 @@ namespace ActorService.Model
     
     public class Zone
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Level { get; set; }
-        public ZoneType ZoneType { get; set; }
+        
+        public Zone(string name, int level, ZoneType zoneType)
+        {
+            Name = name;
+            Level = level;
+            ZoneType = zoneType;
+        }
+        
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public int Level { get; private set; }
+        public ZoneType ZoneType { get; private set; }
 
         public IEnumerable<Actor> Actors => _actors;
         public IEnumerable<Actor> Inhabitants => _inhabitants;
 
         private readonly List<Actor> _actors = new List<Actor>();
         private readonly List<Actor> _inhabitants = new List<Actor>();
-        
+
+
         public void AddActor(Actor actor)
         {
             _actors.Add(actor);    

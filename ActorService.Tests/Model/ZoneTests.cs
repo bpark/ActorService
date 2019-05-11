@@ -9,7 +9,7 @@ namespace ActorService.Tests.Model
 
         public ZonesTest()
         {
-            _zone = new Zone();
+            _zone = new Zone(name: "Test", level: 1, ZoneType.Dungeon);
         }
 
         
