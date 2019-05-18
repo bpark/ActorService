@@ -16,7 +16,7 @@ namespace ActorService.Tests.Model
         [Fact]
         public void TestAddActor()
         {
-            var actor = new Actor
+            var actor = new Actor(baseHealth:10, basePower:10, baseSpeed:10)
             {
                 Id = 1
             };
@@ -29,7 +29,7 @@ namespace ActorService.Tests.Model
         [Fact]
         public void TestRemoveActor()
         {
-            var actor = new Actor
+            var actor = new Actor(baseHealth:10, basePower:10, baseSpeed:10)
             {
                 Id = 2
             };
@@ -43,12 +43,12 @@ namespace ActorService.Tests.Model
         [Fact]
         public void AddInhabitantsTest()
         {
-            var inhabitant1 = new Actor
+            var inhabitant1 = new Actor(baseHealth:10, basePower:10, baseSpeed:10)
             {
                 Id = 1
             };
 
-            var inhabitant2 = new Actor
+            var inhabitant2 = new Actor(baseHealth:10, basePower:10, baseSpeed:10)
             {
                 Id = 2
             };
@@ -63,12 +63,12 @@ namespace ActorService.Tests.Model
         [Fact]
         public void TakeInhabitantsTest()
         {
-            var inhabitant1 = new Actor
+            var inhabitant1 = new Actor(baseHealth:10, basePower:10, baseSpeed:10)
             {
                 Id = 1
             };
 
-            var inhabitant2 = new Actor
+            var inhabitant2 = new Actor(baseHealth:10, basePower:10, baseSpeed:10)
             {
                 Id = 2
             };

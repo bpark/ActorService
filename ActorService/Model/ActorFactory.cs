@@ -25,20 +25,20 @@ namespace ActorService.Model
             var rnd = _random.Next(100);
             var quality = _qualityDistribution.First(k => k.Key.IsInRange(rnd)).Value;
 
-            var actor = new Actor
+            var baseHealth = _random.Next(1, 50);
+            var basePower = _random.Next(1, 10);
+            var baseSpeed = _random.Next(1, 10);
+            
+            var actor = new Actor(baseHealth, basePower, baseSpeed)
             {
                 Name = "Test Subject " + _random.Next(100),
-                Level = 1,
                 Experience = 0,
                 Quality = quality,
                 Balance = Balance.Values[_random.Next(Balance.Values.Length)],
-                BaseHealth = _random.Next(1, 50),
-                BasePower = _random.Next(1, 10),
-                BaseSpeed = _random.Next(1, 10),
                 Abilities = CreateAbilities()
             };
 
-            actor.CurrentHealth = actor.Health;
+            actor.LevelUp(1);
 
             return actor;
         }
