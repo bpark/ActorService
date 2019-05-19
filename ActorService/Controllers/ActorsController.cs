@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using ActorService.AppServices;
 using ActorService.Model;
-using ActorService.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ActorService.Controllers
@@ -24,7 +23,6 @@ namespace ActorService.Controllers
             _commandHandler = commandHandler;
         }
 
-        // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Actor>> Get(int page = 0, int pageSize = 10)
         {
@@ -32,7 +30,6 @@ namespace ActorService.Controllers
             return Ok(resultListDto);
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<Actor> Get(int id)
         {
@@ -40,7 +37,6 @@ namespace ActorService.Controllers
             return Ok(actorDto);
         }
 
-        // POST api/values
         [HttpPost]
         public void Post([FromBody] string value)
         {

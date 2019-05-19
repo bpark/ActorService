@@ -38,6 +38,8 @@ namespace ActorService
             services.AddScoped<GetActorListQueryHandler>();
             services.AddScoped<GetActorQueryHandler>();
             services.AddScoped<CreateActorCommandHandler>();
+
+            services.AddScoped<CreateZoneCommandHandler>();
             
             services.AddCors(options =>
             {
