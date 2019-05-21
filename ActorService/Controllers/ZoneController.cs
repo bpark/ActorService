@@ -12,19 +12,21 @@ namespace ActorService.Controllers
 
         private readonly CreateZoneCommandHandler _createZoneCommandHandler;
 
-        public ZoneController(CreateZoneCommandHandler zoneCommandHandler)
+        private readonly GetZoneListQueryHandler _getZoneListQueryHandler;
+
+        public ZoneController(CreateZoneCommandHandler zoneCommandHandler, 
+                              GetZoneListQueryHandler getZoneListQueryHandler)
         {
             _createZoneCommandHandler = zoneCommandHandler;
+            _getZoneListQueryHandler = getZoneListQueryHandler;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Actor>> Get(int page = 0, int pageSize = 10)
         {
-            /*
-            var resultListDto = _listQueryHandler.Handle(new GetActorListQuery(page, pageSize));
+
+            var resultListDto = _getZoneListQueryHandler.Handle(new GetZoneListQuery(page, pageSize));
             return Ok(resultListDto);
-            */
-            return null;
         }
         
         [HttpPost]

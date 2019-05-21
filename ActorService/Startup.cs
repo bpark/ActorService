@@ -33,6 +33,7 @@ namespace ActorService
 
             // register the repository
             services.AddScoped<IActorRepository, ActorRepository>();
+            services.AddScoped<IZoneRepository, ZoneRepository>();
             services.AddSingleton<IActorFactory, ActorFactory>();
 
             services.AddScoped<GetActorListQueryHandler>();
@@ -40,6 +41,7 @@ namespace ActorService
             services.AddScoped<CreateActorCommandHandler>();
 
             services.AddScoped<CreateZoneCommandHandler>();
+            services.AddScoped<GetZoneListQueryHandler>();
             
             services.AddCors(options =>
             {

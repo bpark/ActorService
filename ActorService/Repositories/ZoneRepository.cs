@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using ActorService.Model;
 
 namespace ActorService.Repositories
@@ -14,6 +16,16 @@ namespace ActorService.Repositories
         public void AddZone(Zone zone)
         {
             _modelContext.Zones.Add(zone);
+        }
+
+        public IEnumerable<Zone> GetZones(int page = 0, int pageSize = 10)
+        {
+            return _modelContext.Zones.Skip(page * pageSize).Take(pageSize).ToList();
+        }
+        
+        public int Count()
+        {
+            return _modelContext.Zones.Count();
         }
 
         public bool Save()
