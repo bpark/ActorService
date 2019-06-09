@@ -32,6 +32,11 @@ namespace ActorService.Model
 
     }
     
+    /// <summary>
+    /// Represents a Zone.
+    ///
+    /// Name, Level and ZoneType are immutable.
+    /// </summary>
     public class Zone
     {
         
