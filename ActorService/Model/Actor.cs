@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CSharpFunctionalExtensions;
 
 namespace ActorService.Model
 {
@@ -34,6 +35,8 @@ namespace ActorService.Model
 
         public IReadOnlyList<Ability> Abilities { get; set; }
 
+        public Zone CurrentZone { get; set; }
+
         public void LevelUp(int level)
         {
             Level = level;
@@ -41,6 +44,13 @@ namespace ActorService.Model
             Power = (int) Math.Round((BasePower + Balance.Power / 10) * Level * Quality.Multiplier);
             Speed = (int) Math.Round((BaseSpeed + Balance.Speed / 10) * Level * Quality.Multiplier);
             CurrentHealth = Health;
+        }
+
+        public void moveTo(Zone zone)
+        {
+            CurrentZone?.RemoveActor(this);
+            zone.AddActor(this);
+            CurrentZone = zone;
         }
         
         public override bool Equals(object obj)
@@ -59,5 +69,6 @@ namespace ActorService.Model
         {
             return Id == other.Id;
         }
+        
     }
 }
