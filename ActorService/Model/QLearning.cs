@@ -8,24 +8,24 @@ namespace ActorService.Model
     {
         static Random rnd = new Random(1);
         
-        static void Main(string[] args)
+        static void Mainn(string[] args)
         {
             Console.WriteLine("Begin Q-learning maze demo");
             Console.WriteLine("Setting up maze and rewards");
-            int ns = 12;
-            int[][] FT = CreateMaze(ns);
-            double[][] R = CreateReward(ns);
-            double[][] Q = CreateQuality(ns);
+            var ns = 12;
+            var FT = CreateMaze(ns);
+            var R = CreateReward(ns);
+            var Q = CreateQuality(ns);
             Console.WriteLine("Analyzing maze using Q-learning");
-            int goal = 11;
+            var goal = 11;
             
             
-            double gamma = 0.5;
-            double learnRate = 0.5;
+            var gamma = 0.5;
+            var learnRate = 0.5;
             
             // Q-learning is iterative, so the demo sets up a maxEpochs variable to control how long the algorithm
             // can use to find the Q matrix.
-            int maxEpochs = 1000;
+            var maxEpochs = 1000;
             
             
             Train(FT, R, Q, goal, gamma, learnRate, maxEpochs);
