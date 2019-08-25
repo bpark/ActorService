@@ -8,7 +8,7 @@ namespace ActorService.Model
     {
         static Random rnd = new Random(1);
         
-        static void Mainn(string[] args)
+        static void Main(string[] args)
         {
             Console.WriteLine("Begin Q-learning maze demo");
             Console.WriteLine("Setting up maze and rewards");
